@@ -8,15 +8,17 @@ function initUI() {
     // 1. Google Translate Dropdown (Pojok Kanan Atas)
     const translateDiv = document.createElement('div');
     translateDiv.id = 'google_translate_element';
-    translateDiv.style.cssText = 'position: fixed; top: 20px; right: 20px; z-index: 10000; background: rgba(255,255,255,0.9); padding: 5px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); font-family: sans-serif;';
+    // Style diperkuat, z-index dimaksimalkan, dikasih overflow visible biar menu dropdownnya bisa turun.
+    translateDiv.style.cssText = 'position: fixed; top: 10px; right: 10px; z-index: 2147483647; background: white; padding: 5px 10px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); font-family: Arial, sans-serif; overflow: visible; display: block !important; opacity: 1 !important; visibility: visible !important; min-width: 150px; min-height: 35px; color: black;';
     
     // 2. Bottom Left Menu (About & Donasi)
     const bottomMenu = document.createElement('div');
-    bottomMenu.style.cssText = 'position: fixed; bottom: 20px; left: 20px; z-index: 10000; display: flex; gap: 10px; align-items: center; font-family: sans-serif;';
+    // Memaksa posisi absolute bottom kiri dan max-width supaya tidak bergeser aneh di layar kecil. Flex wrap mencegah kepotong.
+    bottomMenu.style.cssText = 'position: fixed; bottom: 15px; left: 15px; z-index: 2147483647; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-family: Arial, sans-serif; pointer-events: auto; width: 100%; max-width: 300px;';
     
     bottomMenu.innerHTML = `
-        <button onclick="showAboutDev()" style="padding: 10px 15px; font-size: 13px; background: rgba(0,0,0,0.8); color: white; border: 1px solid #444; border-radius: 8px; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">🧑‍💻 About Dev</button>
-        <a href="https://saweria.co/armuzzbrothersdev" target="_blank" style="padding: 10px 15px; font-size: 13px; background: #ffcc00; color: black; font-weight: bold; border: 1px solid #da8b00; border-radius: 8px; cursor: pointer; text-decoration: none; display: flex; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">☕ Donasi</a>
+        <button onclick="showAboutDev()" style="padding: 8px 12px; font-size: 13px; font-weight: bold; background: rgba(15, 23, 42, 0.9); color: white; border: 1px solid #444; border-radius: 6px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.5); font-family: Arial, sans-serif; margin: 0;">🧑‍💻 About Dev</button>
+        <a href="https://saweria.co/armuzzbrothersdev" target="_blank" style="padding: 8px 12px; font-size: 13px; font-weight: bold; background: #ffcc00; color: black; border: 1px solid #da8b00; border-radius: 6px; cursor: pointer; text-decoration: none; box-shadow: 0 2px 8px rgba(0,0,0,0.5); font-family: Arial, sans-serif; display: inline-block; margin: 0;">☕ Donasi</a>
     `;
 
     // 3. Modal About Dev
@@ -59,9 +61,23 @@ if (document.readyState === 'loading') {
 window.googleTranslateElementInit = function() {
     new google.translate.TranslateElement({
         pageLanguage: 'id', 
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+        includedLanguages: 'en,id,ja,ko,zh-CN,ar,ru,es,fr,de,hi', // Bahasa penting
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        autoDisplay: false
     }, 'google_translate_element');
 };
+
+// CSS Tambahan untuk maksa Google Translate tampil normal & sembunyikan bar atas google
+const styleFix = document.createElement('style');
+styleFix.innerHTML = `
+    .goog-te-gadget-simple { background-color: white !important; border: none !important; font-size: 14px !important; padding: 2px !important; }
+    .goog-te-gadget-icon { display: none !important; } /* Sembunyikan ikon Google */
+    .goog-te-menu-value span { color: black !important; }
+    .goog-te-banner-frame.skiptranslate { display: none !important; } /* Sembunyikan banner atas Google Translate */
+    body { top: 0px !important; } /* Fix bug body turun karena Google Translate */
+    #google_translate_element select { color: black; background: white; padding: 5px; border: 1px solid #ccc; border-radius: 4px; }
+`;
+document.head.appendChild(styleFix);
 
 window.showAboutDev = function() {
     document.getElementById('about-dev-modal').style.display = 'block';
