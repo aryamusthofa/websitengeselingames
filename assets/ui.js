@@ -78,12 +78,12 @@ if (document.readyState === 'loading') {
     initUI();
 }
 
-// Global functions untuk Translasi (Versi Standar biar select box normal)
+// Global functions untuk Translasi (Versi Paling Basic)
 window.googleTranslateElementInit = function() {
     new google.translate.TranslateElement({
         pageLanguage: 'id',
-        includedLanguages: 'en,id,ja,ko,zh-CN,ar,ru,es,fr,de,hi,jv,su', 
-        layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL // Pake Horizontal aja biar muncul sebagai <select> native HTML yang kebal CSS conflict
+        includedLanguages: 'en,id,ja,ko,zh-CN,ar,ru,es,fr,de,hi,jv,su'
+        // Tidak pakai layout options sama sekali, biar merender dropdown native default yang paling stabil.
     }, 'google_translate_element');
 };
 
