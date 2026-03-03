@@ -68,8 +68,9 @@ if (document.readyState === 'loading') {
 // Global functions untuk Translasi
 window.googleTranslateElementInit = function() {
     new google.translate.TranslateElement({
-        pageLanguage: 'id',
-        includedLanguages: 'en,id,ja,ko,zh-CN,ar,ru,es,fr,de,hi,jv,su'
+        pageLanguage: 'id', // Bahasa asli website (jangan diubah, kalau diubah teks asli gak kedetek)
+        includedLanguages: 'en,id,ja,ko,zh-CN,ar,ru,es,fr,de,hi,jv,su',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
     }, 'google_translate_element');
 };
 
