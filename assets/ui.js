@@ -39,28 +39,15 @@ function initUI() {
     document.body.appendChild(bottomMenu);
     document.body.appendChild(aboutModal);
 
-    // CSS Super Brutal untuk maksa Google Translate Dropdown beres
+    // CSS untuk membetulkan layout agar tidak terpengaruh Flexbox parent
     const styleFix = document.createElement('style');
     styleFix.innerHTML = `
-        /* Paksa wrapper google translate nampil utuh */
-        #google_translate_element { all: initial; position: absolute; top: 15px; right: 15px; z-index: 2147483647; background: rgba(255,255,255,0.95); padding: 8px 12px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); font-family: sans-serif; display: block !important; opacity: 1 !important; visibility: visible !important; min-width: 150px; }
-        
-        /* Bersihkan style bawaan google */
-        .goog-te-gadget { font-family: sans-serif !important; font-size: 14px !important; color: transparent !important; white-space: nowrap !important; }
-        .goog-te-gadget span { display: none !important; }
-        .goog-te-gadget select { width: 100%; color: black !important; background: white !important; padding: 5px !important; border: 1px solid #ccc !important; border-radius: 4px !important; outline: none !important; font-size: 14px !important; cursor: pointer !important; }
-        
         /* Hapus Banner Atas & Logo */
         .goog-logo-link { display: none !important; }
         .goog-te-banner-frame.skiptranslate { display: none !important; }
         body { top: 0px !important; }
-        
-        /* Fix Overflow Dropdown (Ini yang sering bikin kepotong/buletan doang) */
-        .goog-te-menu-value { text-decoration: none !important; color: black !important; }
-        .goog-te-menu-frame { box-shadow: 0 5px 15px rgba(0,0,0,0.5) !important; z-index: 2147483647 !important; }
-        
-        /* Cegah container kita kena animasi parent */
-        #google_translate_element, #about-dev-modal { animation: none !important; transform: none !important; transition: none !important; }
+        /* Cegah flexbox override */
+        #google_translate_element { position: absolute !important; top: 15px !important; right: 15px !important; z-index: 2147483647 !important; }
     `;
     document.head.appendChild(styleFix);
 
@@ -78,12 +65,11 @@ if (document.readyState === 'loading') {
     initUI();
 }
 
-// Global functions untuk Translasi (Versi Paling Basic)
+// Global functions untuk Translasi
 window.googleTranslateElementInit = function() {
     new google.translate.TranslateElement({
         pageLanguage: 'id',
         includedLanguages: 'en,id,ja,ko,zh-CN,ar,ru,es,fr,de,hi,jv,su'
-        // Tidak pakai layout options sama sekali, biar merender dropdown native default yang paling stabil.
     }, 'google_translate_element');
 };
 
