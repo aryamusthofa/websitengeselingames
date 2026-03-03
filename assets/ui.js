@@ -39,6 +39,31 @@ function initUI() {
     document.body.appendChild(bottomMenu);
     document.body.appendChild(aboutModal);
 
+    // CSS Super Brutal untuk maksa Google Translate Dropdown beres
+    const styleFix = document.createElement('style');
+    styleFix.innerHTML = `
+        /* Paksa wrapper google translate nampil utuh */
+        #google_translate_element { all: initial; position: absolute; top: 15px; right: 15px; z-index: 2147483647; background: rgba(255,255,255,0.95); padding: 8px 12px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); font-family: sans-serif; display: block !important; opacity: 1 !important; visibility: visible !important; min-width: 150px; }
+        
+        /* Bersihkan style bawaan google */
+        .goog-te-gadget { font-family: sans-serif !important; font-size: 14px !important; color: transparent !important; white-space: nowrap !important; }
+        .goog-te-gadget span { display: none !important; }
+        .goog-te-gadget select { width: 100%; color: black !important; background: white !important; padding: 5px !important; border: 1px solid #ccc !important; border-radius: 4px !important; outline: none !important; font-size: 14px !important; cursor: pointer !important; }
+        
+        /* Hapus Banner Atas & Logo */
+        .goog-logo-link { display: none !important; }
+        .goog-te-banner-frame.skiptranslate { display: none !important; }
+        body { top: 0px !important; }
+        
+        /* Fix Overflow Dropdown (Ini yang sering bikin kepotong/buletan doang) */
+        .goog-te-menu-value { text-decoration: none !important; color: black !important; }
+        .goog-te-menu-frame { box-shadow: 0 5px 15px rgba(0,0,0,0.5) !important; z-index: 2147483647 !important; }
+        
+        /* Cegah container kita kena animasi parent */
+        #google_translate_element, #about-dev-modal { animation: none !important; transform: none !important; transition: none !important; }
+    `;
+    document.head.appendChild(styleFix);
+
     // Load Google Translate Script secara dinamis
     const gtScript = document.createElement('script');
     gtScript.type = 'text/javascript';
@@ -53,27 +78,14 @@ if (document.readyState === 'loading') {
     initUI();
 }
 
-// Global functions untuk Translasi dan Modal
+// Global functions untuk Translasi (Versi Standar biar select box normal)
 window.googleTranslateElementInit = function() {
     new google.translate.TranslateElement({
-        pageLanguage: 'id', 
-        includedLanguages: 'en,id,ja,ko,zh-CN,ar,ru,es,fr,de,hi', // Bahasa penting
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-        autoDisplay: false
+        pageLanguage: 'id',
+        includedLanguages: 'en,id,ja,ko,zh-CN,ar,ru,es,fr,de,hi,jv,su', 
+        layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL // Pake Horizontal aja biar muncul sebagai <select> native HTML yang kebal CSS conflict
     }, 'google_translate_element');
 };
-
-// CSS Tambahan untuk maksa Google Translate tampil normal & sembunyikan bar atas google
-const styleFix = document.createElement('style');
-styleFix.innerHTML = `
-    .goog-te-gadget-simple { background-color: white !important; border: none !important; font-size: 14px !important; padding: 2px !important; }
-    .goog-te-gadget-icon { display: none !important; } /* Sembunyikan ikon Google */
-    .goog-te-menu-value span { color: black !important; }
-    .goog-te-banner-frame.skiptranslate { display: none !important; } /* Sembunyikan banner atas Google Translate */
-    body { top: 0px !important; } /* Fix bug body turun karena Google Translate */
-    #google_translate_element select { color: black; background: white; padding: 5px; border: 1px solid #ccc; border-radius: 4px; }
-`;
-document.head.appendChild(styleFix);
 
 window.showAboutDev = function() {
     document.getElementById('about-dev-modal').style.display = 'block';
