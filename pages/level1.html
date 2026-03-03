@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artikel 1 - Pengenalan</title>
+    <link rel="stylesheet" href="../assets/main.css">
+    <style>
+        body { text-align: left; background: #fff; padding: 50px; }
+        .artikel-teks { font-size: 18px; line-height: 1.6; max-width: 600px; margin: 0 auto; color: #333; }
+        #lanjut { padding: 10px 20px; font-size: 16px; margin-top: 30px; cursor: pointer; transition: opacity 2s; }
+        #pesan-aneh { display: none; color: red; font-size: 14px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="artikel-teks">
+        <h2>Bab 1: Awal dari Sesuatu yang Normal</h2>
+        <p>Halo, terima kasih sudah membaca. Dunia ini penuh dengan hal yang tidak terduga, tapi di sini, semuanya berjalan sebagaimana mestinya.</p>
+        <p>Tidak ada yang perlu dikhawatirkan. Jika Anda merasa siap untuk membaca bab selanjutnya, silakan klik tombol di bawah.</p>
+        
+        <button id="lanjut" onclick="window.location.href='level2_popup.html'">Ke Bab Selanjutnya</button>
+        <p id="pesan-aneh">Loh, tombolnya kok ilang? Coba direfresh atau cari cara kliknya wkwk.</p>
+    </div>
+
+    <script src="../assets/security.js"></script>
+    <script src="../assets/progress.js"></script>
+    <script>
+        // Simpen progress
+        saveProgress('pages/level1.html');
+
+        // Tombol perlahan menghilang saat cursor mendekat (bukan kabur, tapi ngilang)
+        const btn = document.getElementById('lanjut');
+        const pesan = document.getElementById('pesan-aneh');
+        
+        document.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            // Hitung jarak cursor ke tombol
+            const dist = Math.hypot(e.clientX - (rect.left + rect.width/2), e.clientY - (rect.top + rect.height/2));
+            
+            if(dist < 150) {
+                // Makin deket makin ilang
+                btn.style.opacity = Math.max(0, dist / 150);
+                if(dist < 50) {
+                    btn.style.pointerEvents = 'none'; // Gak bisa diklik kalau udah mau ilang
+                    pesan.style.display = 'block';
+                } else {
+                    btn.style.pointerEvents = 'auto';
+                }
+            } else {
+                btn.style.opacity = 1;
+                pesan.style.display = 'none';
+            }
+        });
+
+        // Cheat dinamis yang adil untuk Mobile dan PC (Tap teks peringatan X kali)
+        let tapCount = 0;
+        let targetTaps = runConfig.level1_taps || 5; // Default 5 kalau config lama
+        
+        pesan.addEventListener('click', () => {
+            tapCount++;
+            if (tapCount < targetTaps) {
+                pesan.innerHTML = `Loh, tombolnya kok ilang? Coba direfresh atau cari cara kliknya wkwk. <br><span style="font-size:10px; color:#999;">(Tap ${tapCount}/${targetTaps})</span>`;
+            } else {
+                btn.style.opacity = 1;
+                btn.style.pointerEvents = 'auto';
+                pesan.innerHTML = "Oh pinter juga lu nemu tombol rahasianya. Yaudah klik gih.";
+                pesan.style.color = "lime";
+            }
+        });
+    </script>
+</body>
+</html>

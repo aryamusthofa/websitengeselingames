@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LARI ADA HANTUUU!!!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            height: 3000px; /* Panjangin biar user scroll */
+            overflow-x: hidden;
+            text-align: center;
+            transition: background-color 0.1s;
+        }
+        .peringatan {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 30px;
+            color: red;
+            font-weight: bold;
+            z-index: 100;
+            text-shadow: 2px 2px 0 #000;
+            pointer-events: none;
+        }
+        #hantu {
+            position: absolute;
+            top: -200px; /* Mulai dari atas */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 100px;
+            /* Kita pake teks emoji aja biar simpel tapi kocak */
+            z-index: 50;
+            transition: top 0.1s linear, transform 0.5s;
+        }
+        #batu-sialan {
+            position: absolute;
+            top: 1500px; /* Di tengah-tengah scroll */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 50px;
+            background-color: gray;
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #333;
+            border-bottom: 5px solid #444;
+        }
+        .darah-palsu {
+            position: absolute;
+            display: none;
+            color: red;
+            font-size: 40px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="peringatan" id="teks-peringatan">SCROLL KE BAWAH CEPETAN! HANTUNYA NGEJAR!!!</div>
+    
+    <!-- Hantu pake emoji pocong/kunti -->
+    <div id="hantu">👻🔪</div>
+    
+    <div id="batu-sialan">Batu Estetik</div>
+
+    <script>
+        const hantu = document.getElementById('hantu');
+        const batu = document.getElementById('batu-sialan');
+        const teks = document.getElementById('teks-peringatan');
+        let hantuPos = 0;
+        let dahJatuh = false;
+
+        // Efek lampu kedip-kedip merah (jump scare murahan)
+        let kedip = setInterval(() => {
+            if(!dahJatuh) {
+                document.body.style.backgroundColor = document.body.style.backgroundColor === 'darkred' ? 'black' : 'darkred';
+            }
+        }, 300);
+
+        // Hantu ngejar pas user scroll
+        window.addEventListener('scroll', () => {
+            if (dahJatuh) return;
+
+            let scrollY = window.scrollY;
+            
+            // Hantu makin mendekat ke posisi scroll
+            hantuPos = scrollY - 100; // Selalu di atas viewport dikit
+            
+            // Hantu nge-cheat, dia turun lebih cepet dari kita
+            hantu.style.top = hantuPos + 'px';
+
+            // Cek tabrakan sama batu
+            let posisiBatu = batu.offsetTop;
+            
+            if (hantuPos + 100 >= posisiBatu) {
+                // DUAR KESANDUNG
+                dahJatuh = true;
+                clearInterval(kedip);
+                document.body.style.backgroundColor = 'black';
+                
+                // Animasi hantu nyungsep
+                hantu.style.transform = 'translateX(-50%) rotate(90deg) scale(1.5)';
+                hantu.style.top = (posisiBatu - 50) + 'px';
+                hantu.innerText = "😵💥";
+                
+                teks.innerText = "Loh... hantunya kesandung batu bangsat.";
+                teks.style.color = "white";
+
+                // Bikin darah abal-abal
+                setTimeout(() => {
+                    const ouch = document.createElement('div');
+                    ouch.className = 'darah-palsu';
+                    ouch.style.left = '55%';
+                    ouch.style.top = posisiBatu + 'px';
+                    ouch.innerText = "ADUHHH TULANG EKOR GUE!!";
+                    ouch.style.display = 'block';
+                    document.body.appendChild(ouch);
+                }, 500);
+
+                // Setelah kejadian konyol ini, langsung cut ke tamat
+                setTimeout(() => {
+                    window.location.href = 'tamat.html';
+                }, 4000);
+            }
+        });
+
+        // Paksa scroll ke atas pas baru load
+        window.scrollTo(0,0);
+        
+        // Kasih notif kalau ga gerak-gerak
+        setTimeout(() => {
+            if (window.scrollY < 100 && !dahJatuh) {
+                alert("SCROLL KE BAWAH WOI MAU MATI LU?");
+            }
+        }, 3000);
+    </script>
+</body>
+</html>

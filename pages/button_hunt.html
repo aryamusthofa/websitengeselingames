@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sembunyi-sembunyi</title>
+    <style>
+        body { background: white; margin: 0; overflow: hidden; height: 100vh; cursor: crosshair; }
+        #petunjuk { position: absolute; top: 20px; left: 20px; font-family: sans-serif; color: #999; }
+        .tombol-invisible {
+            position: absolute; width: 30px; height: 30px; background: transparent; border: none; cursor: pointer;
+            outline: none; /* Bener-bener gak kelihatan */
+        }
+    </style>
+</head>
+<body>
+    <div id="petunjuk">Temukan dan klik tombol transparan di layar ini. <br><br>Gunakan insting.</div>
+    <button id="target" class="tombol-invisible"></button>
+
+    <script src="../assets/security.js"></script>
+    <script src="../assets/progress.js"></script>
+    <script>
+        saveProgress('pages/button_hunt.html');
+
+        const btn = document.getElementById('target');
+        const petunjuk = document.getElementById('petunjuk');
+        
+        // Taruh tombol di posisi random
+        btn.style.left = Math.random() * (window.innerWidth - 30) + 'px';
+        btn.style.top = Math.random() * (window.innerHeight - 30) + 'px';
+
+        let klikSalah = 0;
+
+        document.body.addEventListener('click', (e) => {
+            if (e.target.id !== 'target') {
+                klikSalah++;
+                
+                // Kalkulasi jarak untuk fitur "Panas/Dingin" buat HP
+                const rect = btn.getBoundingClientRect();
+                const btnX = rect.left + rect.width / 2;
+                const btnY = rect.top + rect.height / 2;
+                const dist = Math.hypot(e.clientX - btnX, e.clientY - btnY);
+                
+                let clueSuhu = "Dingin banget...";
+                if (dist < 50) clueSuhu = "PANAS PANAS PANAS! Dikit lagi!";
+                else if (dist < 150) clueSuhu = "Anget nih, udah deket.";
+                else if (dist < 300) clueSuhu = "Lumayan lah, gak terlalu jauh.";
+
+                petunjuk.innerHTML = `Salah klik bos. Udah nyoba ${klikSalah} kali.<br><br>Status pencarian: <strong>${clueSuhu}</strong>`;
+            }
+        });
+
+        // Ngeledek kalau pake Tab
+        document.addEventListener('keydown', (e) => {
+            if(e.key === 'Tab') {
+                e.preventDefault();
+                alert("Heh, gak boleh pake tombol Tab di level ini. Cari manual!");
+            }
+        });
+
+        btn.addEventListener('click', () => {
+            document.body.style.background = 'lime';
+            petunjuk.style.color = 'black';
+            petunjuk.innerHTML = "Wih nemu! Hebat juga mata lu. Lanjut!";
+            setTimeout(() => {
+                window.location.href = 'captcha_v2.html';
+            }, 1500);
+        });
+    </script>
+</body>
+</html>

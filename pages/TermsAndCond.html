@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syarat dan Ketentuan (Wajib Baca)</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #eee; text-align: center; overflow: hidden; }
+        .box { width: 50%; height: 300px; margin: 50px auto; background: white; border: 1px solid #ccc; overflow-y: scroll; text-align: left; padding: 20px; }
+        .btn-container { position: relative; height: 100px; margin-top: 20px; }
+        button { padding: 10px 20px; font-size: 16px; position: absolute; left: 50%; transform: translateX(-50%); cursor: pointer; }
+        #teks-ngejek { display: none; color: red; font-weight: bold; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h2>Sebelum Keluar, Setujui Dulu S&K Kami</h2>
+    <div class="box" id="snk-box">
+        <p>Pasal 1: Anda menyetujui bahwa Anda telah tertipu.</p>
+        <p>Pasal 2: Karena Anda mengklik tombol "Keluar" tanpa membaca ini, maka...</p>
+        <!-- Teks akan ditambah oleh JS -->
+        <div id="more-text"></div>
+    </div>
+    <div class="btn-container">
+        <button id="btn-setuju">Saya Setuju (Bohong Banget)</button>
+    </div>
+    <div id="teks-ngejek">Ngapain di-scroll? Baca doang kagak, main setuju aja lu!</div>
+
+    <script>
+        const btn = document.getElementById('btn-setuju');
+        const box = document.getElementById('snk-box');
+        let hoverCount = 0;
+
+        // Bikin teks super panjang biar males baca
+        for(let i=3; i<=100; i++) {
+            document.getElementById('more-text').innerHTML += `<p>Pasal ${i}: Kami berhak mengambil sisa umur Anda sebanyak ${i} detik.</p>`;
+        }
+
+        box.addEventListener('scroll', () => {
+            if(box.scrollTop > 50) {
+                document.getElementById('teks-ngejek').style.display = 'block';
+            }
+        });
+
+        btn.addEventListener('mouseover', function() {
+            if(hoverCount < 15) {
+                // Tombol loncat-loncat
+                const x = Math.random() * (window.innerWidth - 200) - (window.innerWidth / 2) + 100;
+                const y = Math.random() * 200 - 100;
+                this.style.transform = `translate(${x}px, ${y}px)`;
+                
+                const bacotan = ["Yakin setuju?", "Eh ga kena!", "Baca dulu ngapa!", "Main klik aja lu", "Masa nyerah?", "Wleee"];
+                this.innerText = bacotan[hoverCount % bacotan.length];
+                hoverCount++;
+            } else {
+                this.innerText = "Yaudah pencet aja sono";
+                this.style.transform = "translateX(-50%)"; // Balik ke tengah
+            }
+        });
+
+        btn.addEventListener('click', () => {
+            window.location.href = 'clean_screen.html';
+        });
+    </script>
+</body>
+</html>

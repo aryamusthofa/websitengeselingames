@@ -1,0 +1,175 @@
+/* Global Modern Variables */
+:root {
+    --bg-gradient-1: #0f2027;
+    --bg-gradient-2: #203a43;
+    --bg-gradient-3: #2c5364;
+    --primary-color: #6366f1;
+    --primary-hover: #4f46e5;
+    --danger-color: #ef4444;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* Base Body with Animated Gradient */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    color: var(--text-main);
+    background: linear-gradient(-45deg, var(--bg-gradient-1), var(--bg-gradient-2), var(--bg-gradient-3), #1f1c2c);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    overflow: hidden;
+    perspective: 1000px;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Global Fade In Animation */
+body > * {
+    animation: fadeInSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Glassmorphism Container */
+.container {
+    text-align: center;
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    padding: 50px;
+    border-radius: 24px;
+    box-shadow: var(--glass-shadow);
+    position: relative;
+    z-index: 10;
+    max-width: 500px;
+    width: 90%;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
+}
+
+.container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    background: linear-gradient(to right, #a8c0ff, #3f2b96);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -1px;
+}
+
+p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 40px;
+}
+
+/* Modern Dynamic Buttons */
+button {
+    padding: 16px 36px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    letter-spacing: 0.5px;
+}
+
+button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translate(-50%, -50%) rotate(35deg) scale(0);
+    transition: transform 0.5s ease;
+}
+
+button:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.6);
+}
+
+button:hover::after {
+    transform: translate(-50%, -50%) rotate(35deg) scale(1);
+}
+
+button:active {
+    transform: translateY(1px) scale(0.98);
+}
+
+#btn-reset {
+    background: var(--danger-color);
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+}
+#btn-reset:hover {
+    background: #dc2626;
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.6);
+}
+
+#hidden-warning {
+    display: none;
+    color: #ff4757;
+    font-weight: 800;
+    margin-top: 25px;
+    font-size: 1.5rem;
+    animation: shake 0.5s ease-in-out infinite;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px) rotate(-2deg); }
+    50% { transform: translateX(5px) rotate(2deg); }
+    75% { transform: translateX(-5px) rotate(-2deg); }
+}
+
+/* Floating Particles (dibuat via JS nanti kalau mau) */
+.particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: floatUp 10s linear infinite;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(100vh) scale(0); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateY(-20vh) scale(1.5); opacity: 0; }
+}

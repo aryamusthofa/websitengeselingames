@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tes Mata</title>
+    <style>
+        body { text-align: center; font-family: sans-serif; padding: 50px; background: #fff; }
+        .grid { display: grid; grid-template-columns: repeat(5, 60px); gap: 5px; justify-content: center; margin-top: 20px; }
+        .kotak { width: 60px; height: 60px; cursor: pointer; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h2>Klik kotak yang warnanya <strong>MERAH</strong></h2>
+    <p>Jangan sampai salah klik.</p>
+    
+    <div class="grid" id="grid-warna"></div>
+
+    <script src="../assets/security.js"></script>
+    <script src="../assets/progress.js"></script>
+    <script>
+        saveProgress('pages/color_blind.html');
+
+        const grid = document.getElementById('grid-warna');
+        
+        // Bikin 25 kotak, semuanya oren agak kemerahan, cuma 1 yang beneran merah
+        let indexMerah = Math.floor(Math.random() * 25);
+        
+        for(let i=0; i<25; i++) {
+            let kotak = document.createElement('div');
+            kotak.className = 'kotak';
+            
+            if(i === indexMerah) {
+                kotak.style.backgroundColor = '#FF0000'; // Merah murni
+                kotak.addEventListener('click', () => {
+                    alert("Mata lu masih sehat ternyata.");
+                    window.location.href = 'mouse_reverse.html';
+                });
+            } else {
+                // Oren kemerahan ngeselin
+                let red = 250 + Math.floor(Math.random() * 5);
+                let green = 30 + Math.floor(Math.random() * 20);
+                kotak.style.backgroundColor = `rgb(${red}, ${green}, 0)`;
+                
+                kotak.addEventListener('click', () => {
+                    alert("Itu oren woy! Buta warna lu ya? Ngulang dari awal level ini!");
+                    window.location.reload();
+                });
+            }
+            grid.appendChild(kotak);
+        }
+    </script>
+</body>
+</html>

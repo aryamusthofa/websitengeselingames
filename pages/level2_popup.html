@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konfirmasi Keamanan</title>
+    <style>
+        body { background: #222; color: #fff; font-family: sans-serif; text-align: center; padding-top: 100px; overflow: hidden; }
+        .modal {
+            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: white; color: black; padding: 30px; border-radius: 8px; box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            z-index: 1000; min-width: 300px;
+        }
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 999; }
+        input { font-size: 18px; padding: 5px; width: 80%; margin-top: 10px; text-align: center; }
+        button { margin-top: 15px; padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Tunggu Sebentar...</h1>
+    <p>Kami mendeteksi aktivitas yang mencurigakan. (Alesan doang sih ini)</p>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="modal" id="modal">
+        <h2 id="modal-judul">Verifikasi Manusia</h2>
+        <p id="modal-teks">Klik tombol di bawah untuk membuktikan Anda bukan robot yang gabut.</p>
+        <button id="btn-klik">Klik Saya!</button>
+        <div id="math-section" style="display:none; margin-top:20px;">
+            <p id="math-text">Bentar, buktikan lu pinter:</p>
+            <input type="number" id="jawaban" placeholder="Jawab sini...">
+            <br>
+            <button id="btn-jawab">Jawab</button>
+        </div>
+    </div>
+
+    <script src="../assets/security.js"></script>
+    <script src="../assets/progress.js"></script>
+    <script>
+        saveProgress('pages/level2_popup.html');
+
+        const overlay = document.getElementById('overlay');
+        const modal = document.getElementById('modal');
+        const btnKlik = document.getElementById('btn-klik');
+        const mathSec = document.getElementById('math-section');
+        const modalTeks = document.getElementById('modal-teks');
+        const mathText = document.getElementById('math-text');
+        
+        let klikCount = 0;
+        let butuhKlik = runConfig.level2_target;
+        let twistKlik = runConfig.level2_twist;
+
+        setTimeout(() => {
+            overlay.style.display = 'block';
+            modal.style.display = 'block';
+            modalTeks.innerHTML = `Klik tombol di bawah sebanyak ${butuhKlik} kali untuk membuktikan Anda bukan robot yang gabut.`;
+            btnKlik.innerText = `Klik Saya! (0/${butuhKlik})`;
+            mathText.innerText = `Bentar, buktikan lu pinter: Berapa ${runConfig.math_q}?`;
+        }, 1500);
+
+        btnKlik.addEventListener('click', () => {
+            klikCount++;
+            btnKlik.innerText = `Klik Saya! (${klikCount}/${butuhKlik})`;
+            
+            if (klikCount === butuhKlik - 1) {
+                // Plot twist
+                butuhKlik = twistKlik;
+                modalTeks.innerHTML = `Ops! Servernya nge-lag. Karena kesalahan kami, target diubah jadi ${twistKlik} kali. Hoki atau buntung nih? Semangat!`;
+                btnKlik.innerText = `Klik Saya! (${klikCount}/${butuhKlik})`;
+                btnKlik.style.background = 'red';
+                btnKlik.style.color = 'white';
+            }
+
+            if (klikCount >= twistKlik) {
+                btnKlik.style.display = 'none';
+                modalTeks.innerHTML = `Buset dipencet beneran. Sekarang kerjain Matematika di bawah ini.`;
+                mathSec.style.display = 'block';
+            }
+        });
+
+        document.getElementById('btn-jawab').addEventListener('click', () => {
+            const jaw = document.getElementById('jawaban').value;
+            if (jaw == runConfig.math_a) {
+                alert("Pinter juga lo, dapet kalkulator darimana?");
+                window.location.href = 'checkpoint1.html';
+            } else {
+                if(typeof playBruh === 'function') playBruh(); // Panggil efek suara
+                alert("Salah bos! Coba ngitung lagi pelan-pelan.");
+            }
+        });
+    </script>
+</body>
+</html>

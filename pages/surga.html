@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Keamanan Level Dewa</title>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .captcha-container {
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            width: 350px;
+            text-align: center;
+        }
+        h2 {
+            font-size: 18px;
+            color: #333;
+            margin-top: 0;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+            margin: 15px 0;
+        }
+        .kotak {
+            width: 100px;
+            height: 100px;
+            background-color: #ddd;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .kotak:hover {
+            background-color: #ccc;
+        }
+        .selected {
+            border: 2px solid blue;
+            transform: scale(0.9);
+            opacity: 0.7;
+        }
+        button {
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #1557b0;
+        }
+        #error-msg {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="captcha-container">
+        <h2>Pilih semua gambar yang berisi<br><strong>Harapan dan Impian Anda yang Telah Hilang</strong></h2>
+        <div class="grid" id="grid-gambar">
+            <!-- Gambar akan di-generate via JS -->
+        </div>
+        <button id="btn-verifikasi">Verifikasi</button>
+        <p id="error-msg">Sistem mendeteksi Anda berbohong pada diri sendiri. Coba lagi.</p>
+    </div>
+
+    <script>
+        const grid = document.getElementById('grid-gambar');
+        const kataSindir = ["Masa Lalu", "Gaji Naik", "Mantan", "Janji Manis", "Tidur Cukup", "Healing", "Wifi Lancar", "Kerjaan Beres", "Gacha Ampas"];
+        let dipilih = 0;
+
+        // Bikin 9 kotak
+        for (let i = 0; i < 9; i++) {
+            let kotak = document.createElement('div');
+            kotak.className = 'kotak';
+            kotak.innerText = kataSindir[Math.floor(Math.random() * kataSindir.length)];
+            
+            kotak.addEventListener('click', function() {
+                this.classList.toggle('selected');
+                
+                // Kalau diklik, malah ganti teksnya jadi makin nyebelin
+                if (this.classList.contains('selected')) {
+                    dipilih++;
+                    this.innerText = "Yakin?";
+                } else {
+                    dipilih--;
+                    this.innerText = "Gak berani ngaku?";
+                }
+            });
+            grid.appendChild(kotak);
+        }
+
+        // Tombol verifikasi yang gak akan pernah berhasil
+        document.getElementById('btn-verifikasi').addEventListener('click', function() {
+            const errorMsg = document.getElementById('error-msg');
+            
+            if (dipilih === 0) {
+                errorMsg.innerText = "Pilih minimal satu! Jangan pura-pura kuat.";
+            } else if (dipilih === 9) {
+                errorMsg.innerText = "Terlalu banyak beban hidup. Sistem menolak memproses.";
+            } else {
+                errorMsg.innerText = "Verifikasi gagal. Anda terdeteksi masih pura-pura bahagia.";
+            }
+            
+            errorMsg.style.display = 'block';
+            
+            // Ngacak ulang isi kotak biar makin emosi
+            document.querySelectorAll('.kotak').forEach(k => {
+                k.classList.remove('selected');
+                k.innerText = kataSindir[Math.floor(Math.random() * kataSindir.length)];
+            });
+            dipilih = 0;
+            
+            // Kesempatan buat kabur ke halaman berikutnya (tombol rahasia)
+            setTimeout(() => {
+                const rahasia = document.createElement('a');
+                rahasia.href = "quest.html"; // Ke halaman quest plot twist
+                rahasia.style.color = "transparent";
+                rahasia.style.textDecoration = "none";
+                rahasia.innerText = ".";
+                document.body.appendChild(rahasia);
+            }, 5000);
+        });
+    </script>
+</body>
+</html>

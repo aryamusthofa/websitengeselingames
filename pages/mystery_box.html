@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilih Hadiah</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding-top: 100px; background: #ffebee; }
+        .kotak-misteri {
+            display: inline-block; width: 150px; height: 150px; background: #ff4081; color: white;
+            line-height: 150px; font-size: 80px; font-weight: bold; margin: 20px; cursor: pointer;
+            border-radius: 10px; transition: transform 0.3s;
+        }
+        .kotak-misteri:hover { transform: scale(1.1) rotate(5deg); }
+        .kotak-terbuka {
+            background: #fff; border: 5px dashed #ff4081; color: black; font-size: 20px; line-height: normal; padding-top: 50px; height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tebak Kotak Hadiah</h1>
+    <p>Satu berisi jalan keluar, yang lain berisi... kekecewaan.</p>
+    
+    <div id="area-kotak">
+        <div class="kotak-misteri" onclick="buka(this)">?</div>
+        <div class="kotak-misteri" onclick="buka(this)">?</div>
+        <div class="kotak-misteri" onclick="buka(this)">?</div>
+    </div>
+
+    <script src="../assets/security.js"></script>
+    <script src="../assets/progress.js"></script>
+    <script>
+        saveProgress('pages/mystery_box.html');
+        let kesempatan = 3; // Selalu gagal sampai percobaan tertentu wkwk
+
+        function buka(elemen) {
+            kesempatan--;
+            elemen.className = 'kotak-misteri kotak-terbuka';
+            elemen.onclick = null; // Biar ga bisa diklik lagi
+
+            if (kesempatan > 0) {
+                elemen.innerHTML = "ZONK!<br>Coba yang lain.";
+                // Acak kotak lagi
+                let divBaru = document.createElement('div');
+                divBaru.className = 'kotak-misteri';
+                divBaru.innerText = '?';
+                divBaru.onclick = function() { buka(this) };
+                document.getElementById('area-kotak').appendChild(divBaru);
+            } else {
+                elemen.innerHTML = "Jebakan!<br>Balik ke Checkpoint!";
+                setTimeout(() => {
+                    window.location.href = 'checkpoint2.html';
+                }, 1500);
+            }
+        }
+    </script>
+</body>
+</html>

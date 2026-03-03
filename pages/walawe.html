@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabar itu Subur</title>
+    <link rel="stylesheet" href="../assets/main.css">
+    <style>
+        body {
+            background-color: #000;
+            color: #0f0;
+            font-family: 'Courier New', Courier, monospace;
+            cursor: none; /* Kursor ngilang beneran */
+        }
+        .matrix-text {
+            font-size: 20px;
+            padding: 50px;
+        }
+        #palsu-loading {
+            width: 80%;
+            height: 30px;
+            border: 2px solid #0f0;
+            margin: 20px auto;
+            position: relative;
+        }
+        #bar {
+            width: 0%;
+            height: 100%;
+            background-color: #0f0;
+            transition: width 0.5s;
+        }
+        #teks-kecil {
+            font-size: 10px;
+            opacity: 0.1;
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+        #teks-kecil:hover {
+            opacity: 1;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix-text">
+        <h1 id="status">Mengunduh Kesabaran Anda...</h1>
+        <div id="palsu-loading">
+            <div id="bar"></div>
+        </div>
+        <p id="pesan">Tunggu bentar yak, lagi nyiapin memori (dan emosi) buat masuk ke halaman selanjutnya.</p>
+        
+        <span id="teks-kecil" onclick="window.location.href='surga.html'">Skip ke halaman selanjutnya (kalau kelihatan)</span>
+    </div>
+
+    <script>
+        let progress = 0;
+        const bar = document.getElementById('bar');
+        const status = document.getElementById('status');
+        const pesan = document.getElementById('pesan');
+
+        // Loading bar yang nyebelin (mentok di 99%)
+        const interval = setInterval(() => {
+            if (progress < 99) {
+                // Makin deket 99, makin lambat jalannya
+                let tambah = Math.random() * (100 - progress) * 0.1;
+                progress += tambah;
+                bar.style.width = progress + '%';
+            } else {
+                status.innerText = "Error 418: I'm a teapot. Silakan tunggu sampai server sadar.";
+                pesan.innerText = "Loading berhenti di 99.9%. Kenapa? Ya karena ngeselin aja.";
+                clearInterval(interval);
+            }
+        }, 500);
+
+        // Mencegah klik kanan dan inspect element (level basic)
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.onkeydown = function(e) {
+            if(e.keyCode == 123) { // F12
+                alert("Ngapain buka inspect element hayoo?");
+                return false;
+            }
+        };
+    </script>
+</body>
+</html>

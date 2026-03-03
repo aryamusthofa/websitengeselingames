@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamat. Gitu Doang.</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: 'Times New Roman', Times, serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        h1 {
+            font-size: 50px;
+            letter-spacing: 5px;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 20px;
+            color: #aaa;
+            max-width: 600px;
+            line-height: 1.5;
+        }
+        button {
+            margin-top: 50px;
+            padding: 15px 30px;
+            font-size: 16px;
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background-color: white;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1>GAME OVER</h1>
+    <p>Hantunya mati kesandung. Tulang ekornya patah dan harus dirawat di ICU gaib.</p>
+    <p>Misi gagal karena tidak ada lagi rintangan yang mengancam nyawa Anda.</p>
+    <p>Terima kasih sudah membuang-buang waktu berharga Anda di website ini.</p>
+    
+    <button onclick="window.location.href='TermsAndCond.html'">Keluar dari Game (Katanya)</button>
+    
+    <script>
+        // Matiin layar perlahan pas masuk
+        document.body.style.opacity = 0;
+        let fade = 0;
+        let interval = setInterval(() => {
+            fade += 0.05;
+            document.body.style.opacity = fade;
+            if (fade >= 1) clearInterval(interval);
+        }, 50);
+    </script>
+</body>
+</html>

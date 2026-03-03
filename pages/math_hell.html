@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ujian Kehidupan</title>
+    <style>
+        body { background: #ffeb3b; color: #333; font-family: 'Comic Sans MS', cursive, sans-serif; text-align: center; padding-top: 100px; }
+        .soal { font-size: 50px; margin-bottom: 30px; }
+        .opsi-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .opsi { padding: 20px 40px; font-size: 30px; background: white; border: 3px solid #333; cursor: pointer; border-radius: 10px; transition: transform 0.1s; }
+        .opsi:hover { transform: scale(1.1); background: #f0f0f0; }
+        #jawaban-benar { display: none; margin-top: 40px; font-size: 20px; color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Pertanyaan Sangat Mudah</h1>
+    <div class="soal">1 + 1 = ...?</div>
+    <div class="opsi-container">
+        <div class="opsi" onclick="salah()">2</div>
+        <div class="opsi" onclick="salah()">11</div>
+        <div class="opsi" onclick="salah()">3</div>
+        <div class="opsi" onclick="salah()">Mbeee</div>
+    </div>
+    
+    <div id="jawaban-benar">
+        Salah semua! Jawaban yang bener adalah Jendela!<br>
+        <img src="https://media.tenor.com/images/a4149fa4bd4a0c8b0244747eb11eeaf5/tenor.gif" width="200" style="margin-top:20px; display:none;" id="gif-ngeledek" alt="ngeledek">
+        <br><br>
+        <button onclick="window.location.href='infinite_scroll.html'" style="padding: 10px; font-size: 16px;">Lanjut nangis</button>
+    </div>
+
+    <script src="../assets/security.js"></script>
+    <script src="../assets/progress.js"></script>
+    <script>
+        saveProgress('pages/math_hell.html');
+        let salahCount = 0;
+        function salah() {
+            if(typeof playBruh === 'function') playBruh();
+            salahCount++;
+            if (salahCount < 3) {
+                alert("Salah! Coba dipikir pake otak, jangan pake dengkul.");
+            } else {
+                document.getElementById('jawaban-benar').style.display = 'block';
+                document.getElementById('gif-ngeledek').style.display = 'inline-block';
+                document.body.style.background = "#ff9800";
+            }
+        }
+    </script>
+</body>
+</html>

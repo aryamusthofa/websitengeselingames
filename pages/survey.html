@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survei Kepuasan</title>
+    <style>
+        body { background: #fdfdfd; font-family: 'Arial', sans-serif; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .kotak-survei { background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; }
+        h2 { color: #333; }
+        .btn-group { margin-top: 30px; position: relative; height: 50px; display: flex; justify-content: center; gap: 20px; }
+        button { padding: 10px 30px; font-size: 16px; cursor: pointer; border: none; border-radius: 4px; font-weight: bold; }
+        #btn-ya { background: #28a745; color: white; }
+        #btn-tidak { background: #dc3545; color: white; position: absolute; }
+    </style>
+</head>
+<body>
+    <div class="kotak-survei">
+        <h2>Apakah Anda marah karena website ini?</h2>
+        <div class="btn-group">
+            <!-- Posisi absolut biar gampang digerakin -->
+            <button id="btn-ya" onclick="alert('Bagus. Itu tujuan kami.'); window.location.href='404_fake.html'">Ya, Banget!</button>
+            <button id="btn-tidak" style="right: 50px;">Tidak, Biasa Aja</button>
+        </div>
+    </div>
+
+    <script src="../assets/security.js"></script>
+    <script src="../assets/progress.js"></script>
+    <script>
+        saveProgress('pages/survey.html');
+
+        const btnTidak = document.getElementById('btn-tidak');
+        const container = document.querySelector('.btn-group');
+        let lariCount = 0;
+
+        btnTidak.addEventListener('mouseover', function() {
+            // Tombol "Tidak" bakal kabur biar user terpaksa ngaku marah
+            let maxX = 300;
+            let maxY = 300;
+            
+            let acakX = (Math.random() - 0.5) * maxX;
+            let acakY = (Math.random() - 0.5) * maxY;
+            
+            this.style.transform = `translate(${acakX}px, ${acakY}px)`;
+            
+            lariCount++;
+            if(lariCount > 5) {
+                this.innerText = "Gengsi amat mau ngaku wkwk";
+            }
+        });
+        
+        // Buat yg ngecheat
+        btnTidak.addEventListener('click', function() {
+            alert("Lu ngecheat ya?! Yaudah lah gue anggap lu marah aja dalam hati.");
+            window.location.href = '404_fake.html';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layar Kotor</title>
+    <style>
+        body { margin: 0; background-color: white; height: 100vh; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: crosshair; }
+        h1 { color: #ccc; user-select: none; z-index: 1; }
+        #kotoran {
+            width: 5px;
+            height: 5px;
+            background-color: black;
+            border-radius: 50%;
+            position: absolute;
+            z-index: 10;
+        }
+        #info { position: absolute; bottom: 20px; color: #999; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <h1>Layar Anda ada debunya tuh. Klik untuk membersihkan.</h1>
+    <div id="kotoran"></div>
+    <div id="info">Klik debu hitam itu untuk melanjutkan.</div>
+
+    <script>
+        const kotoran = document.getElementById('kotoran');
+        
+        // Taruh di tengah awal-awal
+        kotoran.style.left = '50%';
+        kotoran.style.top = '50%';
+
+        kotoran.addEventListener('mouseover', function() {
+            // Pas mau diklik, debunya pindah
+            const newX = Math.random() * (window.innerWidth - 10);
+            const newY = Math.random() * (window.innerHeight - 10);
+            
+            this.style.left = newX + 'px';
+            this.style.top = newY + 'px';
+            
+            document.querySelector('h1').innerText = "Kok debunya bisa lari? Coba lagi.";
+        });
+
+        // Kalau usernya hoki atau pake layar sentuh (atau pake tab)
+        kotoran.addEventListener('click', function() {
+            document.body.style.backgroundColor = "black";
+            document.querySelector('h1').style.color = "red";
+            document.querySelector('h1').innerText = "Tangan lu kotor!!";
+            this.style.display = "none";
+            document.getElementById('info').style.display = "none";
+            
+            setTimeout(() => {
+                window.location.href = 'math_hell.html';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

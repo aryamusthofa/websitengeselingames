@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Not Found</title>
+    <style>
+        body { background: #fff; color: #333; font-family: Arial, sans-serif; text-align: center; padding-top: 15vh; }
+        h1 { font-size: 100px; margin: 0; color: #ccc; }
+        p { font-size: 20px; color: #666; }
+        #rahasia { color: #fff; text-decoration: none; cursor: default; }
+        #rahasia:hover { color: #eee; }
+    </style>
+</head>
+<body>
+    <h1>404</h1>
+    <p>Oops! Halaman yang Anda cari tidak ditemukan.</p>
+    <p>Mungkin servernya capek ngeladenin lu.</p>
+    
+    <p style="margin-top: 100px; font-size: 12px; color: #ccc;">
+        Kembali ke <a href="#" onclick="balikin()" style="color: #007bff;">Beranda</a>. 
+        Atau cari titik <a href="mystery_box.html" id="rahasia">buta</a> di sini.
+    </p>
+
+    <script src="../assets/security.js"></script>
+    <script src="../assets/progress.js"></script>
+    <script>
+        saveProgress('pages/404_fake.html');
+
+        function balikin() {
+            alert("Ngapain balik ke beranda? Cari jalan rahasianya dong di tulisan pudar itu!");
+        }
+    </script>
+</body>
+</html>
