@@ -20,15 +20,17 @@ function createParticles() {
     }
 }
 
-// Jalankan saat load
-document.addEventListener('DOMContentLoaded', () => {
-    createParticles();
-    
-    // Load UI Extras (Translate, Donasi, About) secara otomatis
+// Load UI Extras (Translate, Donasi, About) secara otomatis (Dipanggil langsung)
+(function loadUI() {
     const uiScript = document.createElement('script');
     const isRoot = !window.location.pathname.includes('/pages/') && !window.location.pathname.includes('pages');
     uiScript.src = isRoot ? 'assets/ui.js' : '../assets/ui.js';
-    document.body.appendChild(uiScript);
+    document.head.appendChild(uiScript);
+})();
+
+// Jalankan partikel saat load
+document.addEventListener('DOMContentLoaded', () => {
+    createParticles();
 });
 
 // --- SISTEM DINAMIS (ROGUELIKE) TANPA PHP ---

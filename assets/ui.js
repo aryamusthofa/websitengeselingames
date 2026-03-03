@@ -1,4 +1,7 @@
-document.addEventListener('DOMContentLoaded', () => {
+function initUI() {
+    // Hindari duplikasi
+    if(document.getElementById('google_translate_element')) return;
+
     // Container Utama untuk UI Tambahan
     const uiContainer = document.createElement('div');
     
@@ -43,7 +46,14 @@ document.addEventListener('DOMContentLoaded', () => {
     gtScript.type = 'text/javascript';
     gtScript.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
     document.body.appendChild(gtScript);
-});
+}
+
+// Cek apakah DOM sudah diload. Jika sudah, langsung jalankan. Jika belum, tunggu event.
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initUI);
+} else {
+    initUI();
+}
 
 // Global functions untuk Translasi dan Modal
 window.googleTranslateElementInit = function() {
