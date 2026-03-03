@@ -3,57 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tamat. Gitu Doang.</title>
+    <title>The End. Just like that.</title>
     <style>
-        body {
-            background-color: black;
-            color: white;
-            font-family: 'Times New Roman', Times, serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            text-align: center;
-        }
-        h1 {
-            font-size: 50px;
-            letter-spacing: 5px;
-            margin-bottom: 10px;
-        }
-        p {
-            font-size: 20px;
-            color: #aaa;
-            max-width: 600px;
-            line-height: 1.5;
-        }
-        button {
-            margin-top: 50px;
-            padding: 15px 30px;
-            font-size: 16px;
-            background-color: transparent;
-            color: white;
-            border: 1px solid white;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        button:hover {
-            background-color: white;
-            color: black;
-        }
+        body { background-color: black; color: white; font-family: 'Times New Roman', Times, serif; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; text-align: center; }
+        h1 { font-size: 50px; letter-spacing: 5px; margin-bottom: 10px; }
+        p { font-size: 20px; color: #aaa; max-width: 600px; line-height: 1.5; }
+        button { margin-top: 50px; padding: 15px 30px; font-size: 16px; background-color: transparent; color: white; border: 1px solid white; cursor: pointer; transition: all 0.3s; }
+        button:hover { background-color: white; color: black; }
     </style>
 </head>
 <body>
     <h1>GAME OVER</h1>
-    <p>Hantunya mati kesandung. Tulang ekornya patah dan harus dirawat di ICU gaib.</p>
-    <p>Misi gagal karena tidak ada lagi rintangan yang mengancam nyawa Anda.</p>
-    <p>Terima kasih sudah membuang-buang waktu berharga Anda di website ini.</p>
+    <p>The ghost tripped and died. Its tailbone broke and must be treated in a supernatural ICU.</p>
+    <p>Mission failed because there are no more obstacles threatening your life.</p>
+    <p>Thank you for wasting your precious time on this website.</p>
     
-    <button onclick="window.location.href='TermsAndCond.html'">Keluar dari Game (Katanya)</button>
+    <button onclick="window.location.href='TermsAndCond.html'">Exit Game (Supposedly)</button>
     
+    <script src="../assets/security.js"></script>
+    <script src="../assets/progress.js"></script>
     <script>
-        // Matiin layar perlahan pas masuk
+        saveProgress('pages/tamat.html');
         document.body.style.opacity = 0;
         let fade = 0;
         let interval = setInterval(() => {

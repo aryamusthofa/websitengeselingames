@@ -3,34 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sangat Silau</title>
+    <title>Very Bright</title>
     <style>
-        body { 
-            background-color: white; 
-            color: white; /* Tulisan putih di atas background putih */
-            font-family: Arial, sans-serif; 
-            display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0;
-        }
-        ::selection { background: black; color: white; } /* Cara baca tulisannya harus di-highlight (diblok) */
-        button { 
-            background: white; color: white; border: 1px solid white; padding: 10px 20px; cursor: pointer; 
-            transition: all 0.3s;
-        }
+        body { background-color: white; color: white; font-family: Arial, sans-serif; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        ::selection { background: black; color: white; }
+        button { background: white; color: white; border: 1px solid white; padding: 10px 20px; cursor: pointer; transition: all 0.3s; }
         button:hover { border: 1px solid #ccc; }
     </style>
 </head>
 <body>
-    <h1>Selamat Datang di Ruang Silau</h1>
-    <p>Anda hanya bisa melihat rahasia di sini jika Anda memblok (highlight) teks ini.</p>
-    <p>Jika Anda sudah membaca ini, cari tombol putih di bawah dan klik.</p>
+    <h1>Welcome to the Blinding Room</h1>
+    <p>You can only see the secret here if you highlight this text.</p>
+    <p>If you're reading this, find the white button below and click it.</p>
     
-    <button onclick="window.location.href='fake_win.html'">Lanjut ke Hadiah</button>
+    <button onclick="window.location.href='fake_win.html'">Proceed to Prize</button>
 
     <script src="../assets/security.js"></script>
     <script src="../assets/progress.js"></script>
     <script>
         saveProgress('pages/flashbang.html');
-        // Flashbang ringan pas awal masuk
         document.body.style.opacity = '0';
         setTimeout(() => document.body.style.opacity = '1', 500);
     </script>

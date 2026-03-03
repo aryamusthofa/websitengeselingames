@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dunia Terbalik</title>
+    <title>Upside Down World</title>
     <style>
         body { margin: 0; height: 100vh; background: #333; color: white; overflow: hidden; cursor: none; font-family: monospace; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         #fake-cursor {
@@ -14,13 +14,13 @@
         .target-btn {
             padding: 20px 40px; font-size: 20px; background: lime; color: black; border: none; font-weight: bold; cursor: none;
         }
-        #info { margin-bottom: 50px; font-size: 24px; }
+        #info { margin-bottom: 50px; font-size: 24px; text-align: center; }
     </style>
 </head>
 <body>
     <div id="fake-cursor"></div>
-    <div id="info">Klik tombol hijau untuk lolos.<br>P.S: Mouse lu sekarang jalannya kebalik.</div>
-    <button class="target-btn" id="btn-hijau">Lolos</button>
+    <div id="info">Click the green button to pass.<br>P.S: Your mouse is now reversed.</div>
+    <button class="target-btn" id="btn-hijau">Pass</button>
 
     <script src="../assets/security.js"></script>
     <script src="../assets/progress.js"></script>
@@ -30,19 +30,16 @@
         const fakeCursor = document.getElementById('fake-cursor');
         const btn = document.getElementById('btn-hijau');
 
-        // Logic membalikkan cursor
         document.addEventListener('mousemove', (e) => {
             let winW = window.innerWidth;
             let winH = window.innerHeight;
             
-            // Kebalikan dari posisi asli
             let fakeX = winW - e.clientX;
             let fakeY = winH - e.clientY;
             
             fakeCursor.style.left = fakeX + 'px';
             fakeCursor.style.top = fakeY + 'px';
 
-            // Cek kalau fake cursor nabrak tombol
             let rect = btn.getBoundingClientRect();
             if (fakeX >= rect.left && fakeX <= rect.right && fakeY >= rect.top && fakeY <= rect.bottom) {
                 btn.style.background = 'yellow';
@@ -51,7 +48,6 @@
             }
         });
 
-        // Bikin click bohongan dari posisi fake cursor
         document.addEventListener('click', (e) => {
             let winW = window.innerWidth;
             let winH = window.innerHeight;
@@ -60,10 +56,9 @@
             
             let rect = btn.getBoundingClientRect();
             if (fakeX >= rect.left && fakeX <= rect.right && fakeY >= rect.top && fakeY <= rect.bottom) {
-                alert("Wah jago main terbalik. GG!");
+                alert("Wow, you're good at playing reversed. GG!");
                 window.location.href = 'checkpoint2.html';
             } else {
-                // Suara salah (beep)
                 let actx = new (window.AudioContext || window.webkitAudioContext)();
                 let osc = actx.createOscillator();
                 osc.type = 'triangle';

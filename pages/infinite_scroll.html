@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jalan Pintas</title>
+    <title>Shortcut</title>
     <style>
         body { margin: 0; font-family: sans-serif; background: #fafafa; color: #222; overflow-x: hidden; }
         .header { position: fixed; top: 0; width: 100%; background: #333; color: white; padding: 20px; text-align: center; z-index: 100; }
@@ -14,50 +14,49 @@
 </head>
 <body>
     <div class="header">
-        <h2>Scroll ke Bawah untuk Menemukan Tombol Lanjut</h2>
+        <h2>Scroll Down to Find the Next Button</h2>
     </div>
     <div id="konten">
-        <div class="batu">Terus scroll ke bawah...</div>
-        <!-- JS bakal nambahin terus -->
+        <div class="batu">Keep scrolling down...</div>
     </div>
     
-    <button id="tombol-selamat" onclick="window.location.href='fake_error.html'">YAY KETEMU!</button>
+    <button id="tombol-selamat" onclick="window.location.href='fake_error.html'">YAY FOUND IT!</button>
 
+    <script src="../assets/security.js"></script>
+    <script src="../assets/progress.js"></script>
     <script>
+        saveProgress('pages/infinite_scroll.html');
         const konten = document.getElementById('konten');
         const tombol = document.getElementById('tombol-selamat');
         let scrollCount = 0;
         let dahTampil = false;
 
         const bacotan = [
-            "Masih jauh bang...",
-            "Ayo sedikit lagi (bohong)",
-            "Nyerah aja mendingan",
-            "Jempol lu ga pegel tah?",
-            "Scroll terus sampe bawah tanah",
-            "Bentar lagi ketemu kok",
-            "Eh, kelewatan ga sih?",
-            "Yakin di bawah ada tombolnya?"
+            "Still a long way bro...",
+            "Just a little more (lie)",
+            "Better just give up",
+            "Are your thumbs tired yet?",
+            "Keep scrolling underground",
+            "Almost there",
+            "Hey, did we pass it?",
+            "Are you sure there's a button down here?"
         ];
 
         window.addEventListener('scroll', () => {
-            // Kalau udah scroll hampir ke bawah
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
                 if (scrollCount < 15) {
-                    // Nambahin elemen baru biar makin panjang
                     let divBaru = document.createElement('div');
                     divBaru.className = 'batu';
                     divBaru.innerText = bacotan[scrollCount % bacotan.length];
                     konten.appendChild(divBaru);
                     scrollCount++;
                 } else if (!dahTampil) {
-                    // Setelah scroll 15 kali tinggi layar, baru munculin
                     tombol.style.display = 'block';
                     dahTampil = true;
                     let divBaru = document.createElement('div');
                     divBaru.className = 'batu';
                     divBaru.style.color = "black";
-                    divBaru.innerText = "Akhirnya penderitaan (ini) berakhir.";
+                    divBaru.innerText = "Finally, (this) suffering ends.";
                     konten.appendChild(divBaru);
                 }
             }

@@ -3,20 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SELAMAT KAMU MENANG!</title>
+    <title>CONGRATULATIONS YOU WON!</title>
     <style>
-        body {
-            background: linear-gradient(45deg, #ff0, #0ff, #f0f, #f00);
-            background-size: 400% 400%;
-            animation: gradient 3s ease infinite;
-            color: black; font-family: 'Impact', Charcoal, sans-serif; text-align: center; padding-top: 100px;
-            overflow: hidden;
-        }
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+        body { background: linear-gradient(45deg, #ff0, #0ff, #f0f, #f00); background-size: 400% 400%; animation: gradient 3s ease infinite; color: black; font-family: 'Impact', Charcoal, sans-serif; text-align: center; padding-top: 100px; overflow: hidden; }
+        @keyframes gradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         h1 { font-size: 80px; text-shadow: 2px 2px 0 #fff; margin-bottom: 0; }
         p { font-size: 24px; font-weight: bold; background: rgba(255,255,255,0.7); display: inline-block; padding: 10px; border-radius: 10px; }
         .kembang-api { position: absolute; width: 10px; height: 10px; background: red; border-radius: 50%; animation: ledak 1s infinite; }
@@ -26,26 +16,23 @@
     </style>
 </head>
 <body>
-    <h1>🎉 SELAMAT! 🎉</h1>
-    <p>KAMU ADALAH PEMENANG DARI WEBSITE NGESELIN INI!</p>
+    <h1>🎉 CONGRATULATIONS! 🎉</h1>
+    <p>YOU ARE THE WINNER OF THIS ANNOYING WEBSITE!</p>
     <br>
-    <p style="font-size: 16px;">(Atau jangan-jangan ini cuma tipuan lain? Misteri...)</p>
+    <p style="font-size: 16px;">(Or is this just another trick? A mystery...)</p>
     <br>
-    <button id="btn-klaim">KLAIM HADIAH!</button>
+    <button id="btn-klaim">CLAIM PRIZE!</button>
 
-    <!-- Tempat Nonton Rickroll -->
     <div id="video-container" style="display:none; margin-top:20px; z-index:9999; position:relative;">
-        <h2 style="color:white;">INILAH HADIAHMU...</h2>
+        <h2 style="color:white;">HERE IS YOUR PRIZE...</h2>
         <iframe id="rickroll" width="560" height="315" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
 
     <script src="../assets/security.js"></script>
     <script src="../assets/progress.js"></script>
     <script>
-        // Hapus progress karena dia menang (atau kalah?)
         localStorage.removeItem('level_ngeselin');
 
-        // Bikin kembang api palsu
         for(let i=0; i<20; i++) {
             let api = document.createElement('div');
             api.className = 'kembang-api';
@@ -57,19 +44,17 @@
         }
 
         document.getElementById('btn-klaim').addEventListener('click', () => {
-            let tanya = confirm("Apakah kamu yakin ini hadiah beneran?");
+            let tanya = confirm("Are you sure this is a real prize?");
             if(tanya) {
-                alert("Yah, sayang sekali. Anda terlalu naif.");
-                window.location.href = '../index.html'; // Balik ke awal banget! Loop tak berujung.
+                alert("Ah, what a pity. You are too naive.");
+                window.location.href = '../index.html'; 
             } else {
-                alert("Bagus, Anda cerdas. Silakan nikmati hadiah eksklusif ini.");
+                alert("Good, you are smart. Please enjoy this exclusive prize.");
                 
-                // Hentikan BGM sebelumnya jika ada
                 if(document.getElementById('bgm-ngeselin')) {
                     document.getElementById('bgm-ngeselin').pause();
                 }
                 
-                // Munculin Rickroll Auto Play
                 document.body.style.background = "black";
                 document.body.style.animation = "none";
                 document.getElementById('btn-klaim').style.display = 'none';
@@ -78,7 +63,6 @@
                 
                 const vidContainer = document.getElementById('video-container');
                 vidContainer.style.display = 'block';
-                // Parameter autoplay=1 dipasang
                 document.getElementById('rickroll').src = "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1";
             }
         });

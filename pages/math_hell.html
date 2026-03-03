@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ujian Kehidupan</title>
+    <title>Life Exam</title>
     <style>
         body { background: #ffeb3b; color: #333; font-family: 'Comic Sans MS', cursive, sans-serif; text-align: center; padding-top: 100px; }
         .soal { font-size: 50px; margin-bottom: 30px; }
@@ -14,20 +14,20 @@
     </style>
 </head>
 <body>
-    <h1>Pertanyaan Sangat Mudah</h1>
+    <h1>Very Easy Question</h1>
     <div class="soal">1 + 1 = ...?</div>
     <div class="opsi-container">
         <div class="opsi" onclick="salah()">2</div>
         <div class="opsi" onclick="salah()">11</div>
         <div class="opsi" onclick="salah()">3</div>
-        <div class="opsi" onclick="salah()">Mbeee</div>
+        <div class="opsi" onclick="salah()">Baaa</div>
     </div>
     
     <div id="jawaban-benar">
-        Salah semua! Jawaban yang bener adalah Jendela!<br>
-        <img src="https://media.tenor.com/images/a4149fa4bd4a0c8b0244747eb11eeaf5/tenor.gif" width="200" style="margin-top:20px; display:none;" id="gif-ngeledek" alt="ngeledek">
+        All wrong! The correct answer is Window!<br>
+        <img src="https://media.tenor.com/images/a4149fa4bd4a0c8b0244747eb11eeaf5/tenor.gif" width="200" style="margin-top:20px; display:none;" id="gif-ngeledek" alt="taunting">
         <br><br>
-        <button onclick="window.location.href='infinite_scroll.html'" style="padding: 10px; font-size: 16px;">Lanjut nangis</button>
+        <button onclick="window.location.href='infinite_scroll.html'" style="padding: 10px; font-size: 16px;">Keep crying</button>
     </div>
 
     <script src="../assets/security.js"></script>
@@ -39,7 +39,7 @@
             if(typeof playBruh === 'function') playBruh();
             salahCount++;
             if (salahCount < 3) {
-                alert("Salah! Coba dipikir pake otak, jangan pake dengkul.");
+                alert("Wrong! Try using your brain, not your knees.");
             } else {
                 document.getElementById('jawaban-benar').style.display = 'block';
                 document.getElementById('gif-ngeledek').style.display = 'inline-block';

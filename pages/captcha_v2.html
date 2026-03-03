@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Captcha Patah</title>
+    <title>Broken Captcha</title>
     <style>
         body { font-family: Arial; text-align: center; padding-top: 100px; background: #eee; }
         .captcha-box { font-size: 40px; letter-spacing: 10px; font-weight: bold; background: url('https://www.transparenttextures.com/patterns/stardust.png') #ccc; display: inline-block; padding: 20px; text-decoration: line-through; user-select: none; }
@@ -12,10 +12,10 @@
     </style>
 </head>
 <body>
-    <h2>Ketik Ulang Teks di Bawah Ini:</h2>
-    <div class="captcha-box" id="captcha-display">MEMUAT...</div>
+    <h2>Retype the Text Below:</h2>
+    <div class="captcha-box" id="captcha-display">LOADING...</div>
     <br>
-    <input type="text" id="input-teks" placeholder="Ketik kata di atas">
+    <input type="text" id="input-teks" placeholder="Type the word above">
     <div id="pesan"></div>
 
     <script src="../assets/security.js"></script>
@@ -27,11 +27,9 @@
         const pesan = document.getElementById('pesan');
         const captchaDisplay = document.getElementById('captcha-display');
         
-        // Ambil kata dari config dinamis
         const targetWord = runConfig.captcha_word;
         captchaDisplay.innerText = targetWord;
         
-        // Bikin keyboard mapping ngeselin secara dinamis juga!
         const keyboardRusak = {};
         const abjad = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         for(let i=0; i<targetWord.length; i++) {
@@ -45,18 +43,18 @@
             if (keyboardRusak[e.key]) {
                 e.preventDefault();
                 input.value += keyboardRusak[e.key];
-                pesan.innerText = `Loh, keyboard lu rusak ya? Kok ngetik '${e.key}' keluarnya '${keyboardRusak[e.key]}'?`;
+                pesan.innerText = `Wait, is your keyboard broken? You typed '${e.key}' but '${keyboardRusak[e.key]}' came out?`;
             }
         });
 
         input.addEventListener('input', () => {
             if(input.value.toUpperCase() === targetWord) {
-                alert("Dih nge-cheat pake Copy-Paste! Yaudah deh lewat.");
+                alert("Eww cheating using Copy-Paste! Fine, you can pass.");
                 window.location.href = 'password_hell.html';
             }
             if(input.value.length > targetWord.length + 5) {
                 input.value = "";
-                pesan.innerText = "Kepanjangan woy. Ulang.";
+                pesan.innerText = "Too long bro. Restart.";
             }
         });
     </script>

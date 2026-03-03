@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Survei Kepuasan</title>
+    <title>Satisfaction Survey</title>
     <style>
         body { background: #fdfdfd; font-family: 'Arial', sans-serif; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; }
         .kotak-survei { background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; }
@@ -16,11 +16,10 @@
 </head>
 <body>
     <div class="kotak-survei">
-        <h2>Apakah Anda marah karena website ini?</h2>
+        <h2>Are you angry because of this website?</h2>
         <div class="btn-group">
-            <!-- Posisi absolut biar gampang digerakin -->
-            <button id="btn-ya" onclick="alert('Bagus. Itu tujuan kami.'); window.location.href='404_fake.html'">Ya, Banget!</button>
-            <button id="btn-tidak" style="right: 50px;">Tidak, Biasa Aja</button>
+            <button id="btn-ya" onclick="alert('Good. That was our goal.'); window.location.href='404_fake.html'">Yes, Very!</button>
+            <button id="btn-tidak" style="right: 50px;">No, Not Really</button>
         </div>
     </div>
 
@@ -30,11 +29,9 @@
         saveProgress('pages/survey.html');
 
         const btnTidak = document.getElementById('btn-tidak');
-        const container = document.querySelector('.btn-group');
         let lariCount = 0;
 
         btnTidak.addEventListener('mouseover', function() {
-            // Tombol "Tidak" bakal kabur biar user terpaksa ngaku marah
             let maxX = 300;
             let maxY = 300;
             
@@ -45,13 +42,12 @@
             
             lariCount++;
             if(lariCount > 5) {
-                this.innerText = "Gengsi amat mau ngaku wkwk";
+                this.innerText = "Too proud to admit lol";
             }
         });
         
-        // Buat yg ngecheat
         btnTidak.addEventListener('click', function() {
-            alert("Lu ngecheat ya?! Yaudah lah gue anggap lu marah aja dalam hati.");
+            alert("You cheated?! Fine, I'll just assume you're angry deep down.");
             window.location.href = '404_fake.html';
         });
     </script>

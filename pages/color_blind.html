@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tes Mata</title>
+    <title>Eye Test</title>
     <style>
         body { text-align: center; font-family: sans-serif; padding: 50px; background: #fff; }
         .grid { display: grid; grid-template-columns: repeat(5, 60px); gap: 5px; justify-content: center; margin-top: 20px; }
@@ -11,8 +11,8 @@
     </style>
 </head>
 <body>
-    <h2>Klik kotak yang warnanya <strong>MERAH</strong></h2>
-    <p>Jangan sampai salah klik.</p>
+    <h2>Click the box that is <strong>RED</strong></h2>
+    <p>Do not click the wrong one.</p>
     
     <div class="grid" id="grid-warna"></div>
 
@@ -23,7 +23,6 @@
 
         const grid = document.getElementById('grid-warna');
         
-        // Bikin 25 kotak, semuanya oren agak kemerahan, cuma 1 yang beneran merah
         let indexMerah = Math.floor(Math.random() * 25);
         
         for(let i=0; i<25; i++) {
@@ -31,19 +30,18 @@
             kotak.className = 'kotak';
             
             if(i === indexMerah) {
-                kotak.style.backgroundColor = '#FF0000'; // Merah murni
+                kotak.style.backgroundColor = '#FF0000'; 
                 kotak.addEventListener('click', () => {
-                    alert("Mata lu masih sehat ternyata.");
+                    alert("Your eyes are still healthy apparently.");
                     window.location.href = 'mouse_reverse.html';
                 });
             } else {
-                // Oren kemerahan ngeselin
                 let red = 250 + Math.floor(Math.random() * 5);
                 let green = 30 + Math.floor(Math.random() * 20);
                 kotak.style.backgroundColor = `rgb(${red}, ${green}, 0)`;
                 
                 kotak.addEventListener('click', () => {
-                    alert("Itu oren woy! Buta warna lu ya? Ngulang dari awal level ini!");
+                    alert("That's orange bro! Are you color blind? Restart this level!");
                     window.location.reload();
                 });
             }

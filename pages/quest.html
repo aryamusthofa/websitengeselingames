@@ -3,139 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Misi Sangat Serius</title>
+    <title>Very Serious Mission</title>
     <style>
-        body {
-            background-color: #111;
-            color: #ddd;
-            font-family: 'Courier New', Courier, monospace;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-        }
-        #instruksi {
-            font-size: 24px;
-            margin-bottom: 50px;
-            text-align: center;
-        }
-        #ruangan {
-            width: 80%;
-            height: 60vh;
-            border: 2px dashed #444;
-            position: relative;
-            background: radial-gradient(circle, #222 0%, #000 100%);
-            cursor: crosshair;
-        }
-        .pintu {
-            width: 100px;
-            height: 150px;
-            background-color: #333;
-            border: 5px solid #555;
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            cursor: not-allowed;
-            color: #111;
-            font-weight: bold;
-        }
-        .kunci {
-            width: 20px;
-            height: 20px;
-            background-color: gold;
-            border-radius: 50%;
-            position: absolute;
-            cursor: pointer;
-            opacity: 0.1; /* Sengaja dibikin nyaru sama background */
-            transition: opacity 0.3s;
-        }
-        .kunci:hover {
-            opacity: 1;
-        }
-        .lift-tombol {
-            width: 20px;
-            height: 20px;
-            background-color: red;
-            border-radius: 50%;
-            margin-top: 10px;
-            display: none;
-        }
-        #pesan-plot-twist {
-            display: none;
-            color: yellow;
-            margin-top: 20px;
-            font-size: 20px;
-            text-align: center;
-            max-width: 600px;
-        }
-        button.masuk {
-            display: none;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: white;
-            color: black;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-        }
+        body { background-color: #111; color: #ddd; font-family: 'Courier New', Courier, monospace; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; overflow: hidden; }
+        #instruksi { font-size: 24px; margin-bottom: 50px; text-align: center; }
+        #ruangan { width: 80%; height: 60vh; border: 2px dashed #444; position: relative; background: radial-gradient(circle, #222 0%, #000 100%); cursor: crosshair; }
+        .pintu { width: 100px; height: 150px; background-color: #333; border: 5px solid #555; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; justify-content: center; flex-direction: column; cursor: not-allowed; color: #111; font-weight: bold; }
+        .kunci { width: 20px; height: 20px; background-color: gold; border-radius: 50%; position: absolute; cursor: pointer; opacity: 0.1; transition: opacity 0.3s; }
+        .kunci:hover { opacity: 1; }
+        .lift-tombol { width: 20px; height: 20px; background-color: red; border-radius: 50%; margin-top: 10px; display: none; }
+        #pesan-plot-twist { display: none; color: yellow; margin-top: 20px; font-size: 20px; text-align: center; max-width: 600px; }
+        button.masuk { display: none; margin-top: 20px; padding: 10px 20px; background-color: white; color: black; border: none; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
-    <div id="instruksi">Suasana mencekam. Cari <strong>Kunci</strong> untuk membuka Pintu Tua ini.</div>
+    <div id="instruksi">Tense atmosphere. Find the <strong>Key</strong> to open this Old Door.</div>
     <div id="ruangan">
-        <div class="pintu" id="pintu-tua">PINTU</div>
-        <!-- Kunci ditaruh di tempat random pake JS -->
+        <div class="pintu" id="pintu-tua">DOOR</div>
     </div>
     <div id="pesan-plot-twist"></div>
-    <button class="masuk" id="btn-masuk" onclick="window.location.href='horror.html'">Masuk ke Dalam Lift (Pake Kunci)</button>
+    <button class="masuk" id="btn-masuk" onclick="window.location.href='horror.html'">Enter the Elevator (Using Key)</button>
 
+    <script src="../assets/security.js"></script>
+    <script src="../assets/progress.js"></script>
     <script>
+        saveProgress('pages/quest.html');
         const ruangan = document.getElementById('ruangan');
         const pintu = document.getElementById('pintu-tua');
         const pesan = document.getElementById('pesan-plot-twist');
         const btnMasuk = document.getElementById('btn-masuk');
 
-        // Bikin kunci di tempat acak
         const kunci = document.createElement('div');
         kunci.className = 'kunci';
-        // Biar ga nabrak pintu, kita batasi koordinatnya
         kunci.style.left = Math.max(10, Math.random() * 90) + '%';
         kunci.style.top = Math.max(10, Math.random() * 70) + '%';
-        
         ruangan.appendChild(kunci);
 
         let kunciDapat = false;
 
         pintu.addEventListener('click', () => {
             if (!kunciDapat) {
-                alert("Terkunci rapat bang. Cari kuncinya dulu di ruangan gelap ini.");
+                alert("It's locked tight, bro. Find the key in this dark room first.");
             }
         });
 
         kunci.addEventListener('click', function() {
             kunciDapat = true;
             this.style.display = 'none';
-            document.getElementById('instruksi').innerText = "Kunci didapat! Coba buka pintunya sekarang.";
+            document.getElementById('instruksi').innerText = "Key obtained! Try opening the door now.";
             pintu.style.cursor = 'pointer';
             pintu.style.backgroundColor = '#666';
         });
 
         pintu.addEventListener('click', function() {
             if (kunciDapat) {
-                // PLOT TWIST: Pintu kebuka, ternyata LIFT! Tapi kok masuknya butuh kunci fisik?
-                this.innerHTML = "LIFT<br><div class='lift-tombol' style='display:block'></div>";
+                this.innerHTML = "ELEVATOR<br><div class='lift-tombol' style='display:block'></div>";
                 this.style.border = "5px solid silver";
                 this.style.backgroundColor = "#ddd";
                 
-                pesan.innerHTML = "WALAWE! Pintunya kebuka dan ternyata isinya <strong>Lift Modern</strong>.<br>Tapi lu tetep harus muter kunci gembok buat mencet tombol liftnya. Logika mana logika?!";
+                pesan.innerHTML = "WOAH! The door opened and it's a <strong>Modern Elevator</strong>.<br>But you still need to turn a padlock key to press the elevator button. Where is the logic?!";
                 pesan.style.display = 'block';
                 btnMasuk.style.display = 'block';
             }

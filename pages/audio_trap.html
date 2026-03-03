@@ -3,27 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ruangan Kedap Suara</title>
+    <title>Soundproof Room</title>
     <style>
         body { background: #111; color: #555; text-align: center; padding-top: 100px; font-family: monospace; transition: background 0.1s; overflow: hidden; }
         p { font-size: 14px; }
         h1 { color: #333; }
         #tombol-rahasia { 
             opacity: 0.05; cursor: pointer; padding: 50px; border: 1px solid #333; 
-            position: absolute; /* Harus absolute biar bisa pindah-pindah bebas */
+            position: absolute; 
         }
         #warning { display: none; color: red; font-size: 50px; font-weight: bold; margin-top: 50px; position: relative; z-index: 10;}
     </style>
 </head>
 <body>
-    <h1>Ssttt... Jangan berisik.</h1>
-    <p>Klik kotak samar di layar untuk lewat secara diam-diam.</p>
-    <p>Jangan klik area lain. Serius.</p>
+    <h1>Shh... Don't make a sound.</h1>
+    <p>Click the faint box on the screen to pass quietly.</p>
+    <p>Do not click anywhere else. Seriously.</p>
 
-    <div id="tombol-rahasia">Kotak</div>
-    <div id="warning">BERISIK WOY!!!</div>
+    <div id="tombol-rahasia">Box</div>
+    <div id="warning">TOO LOUD!!!</div>
 
-    <!-- Pake audio meme dari URL terbuka biar gak repot nyari file mp3 -->
     <audio id="audio-jumpscare" src="https://www.myinstants.com/media/sounds/vine-boom.mp3"></audio>
 
     <script src="../assets/security.js"></script>
@@ -35,31 +34,26 @@
         const kotak = document.getElementById('tombol-rahasia');
         let kenaTrap = false;
 
-        // Ambil posisi dinamis dari Config
         kotak.style.left = runConfig.audio_trap_x + '%';
         kotak.style.top = runConfig.audio_trap_y + '%';
 
         document.body.addEventListener('click', function(e) {
             if (e.target.id === 'tombol-rahasia') {
-                // Berhasil
                 if (!kenaTrap) {
                     window.location.href = 'button_hunt.html';
                 }
             } else {
-                // Salah klik
                 audio.currentTime = 0;
-                audio.play(); // Vine Boom sound
+                audio.play(); 
                 
-                // Efek visual
                 document.body.style.background = 'white';
                 setTimeout(() => document.body.style.background = '#111', 50);
                 
                 document.getElementById('warning').style.display = 'block';
                 kenaTrap = true;
                 
-                // Lempar ke halaman sebelumnya karena gagal
                 setTimeout(() => {
-                    alert("Kan dibilang jangan klik sembarangan! Balik lagi sana!");
+                    alert("Told you not to click randomly! Go back!");
                     window.location.href = 'checkpoint1.html';
                 }, 1000);
             }

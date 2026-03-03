@@ -3,85 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sabar itu Subur</title>
+    <title>Patience is a Virtue</title>
     <link rel="stylesheet" href="../assets/main.css">
     <style>
-        body {
-            background-color: #000;
-            color: #0f0;
-            font-family: 'Courier New', Courier, monospace;
-            cursor: none; /* Kursor ngilang beneran */
-        }
-        .matrix-text {
-            font-size: 20px;
-            padding: 50px;
-        }
-        #palsu-loading {
-            width: 80%;
-            height: 30px;
-            border: 2px solid #0f0;
-            margin: 20px auto;
-            position: relative;
-        }
-        #bar {
-            width: 0%;
-            height: 100%;
-            background-color: #0f0;
-            transition: width 0.5s;
-        }
-        #teks-kecil {
-            font-size: 10px;
-            opacity: 0.1;
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            cursor: pointer;
-        }
-        #teks-kecil:hover {
-            opacity: 1;
-            color: red;
-        }
+        body { background-color: #000; color: #0f0; font-family: 'Courier New', Courier, monospace; cursor: none; }
+        .matrix-text { font-size: 20px; padding: 50px; }
+        #palsu-loading { width: 80%; height: 30px; border: 2px solid #0f0; margin: 20px auto; position: relative; }
+        #bar { width: 0%; height: 100%; background-color: #0f0; transition: width 0.5s; }
+        #teks-kecil { font-size: 10px; opacity: 0.1; position: absolute; bottom: 10px; right: 10px; cursor: pointer; }
+        #teks-kecil:hover { opacity: 1; color: red; }
     </style>
 </head>
 <body>
     <div class="matrix-text">
-        <h1 id="status">Mengunduh Kesabaran Anda...</h1>
+        <h1 id="status">Downloading Your Patience...</h1>
         <div id="palsu-loading">
             <div id="bar"></div>
         </div>
-        <p id="pesan">Tunggu bentar yak, lagi nyiapin memori (dan emosi) buat masuk ke halaman selanjutnya.</p>
+        <p id="pesan">Hold on a sec, preparing memory (and emotions) for the next page.</p>
         
-        <span id="teks-kecil" onclick="window.location.href='surga.html'">Skip ke halaman selanjutnya (kalau kelihatan)</span>
+        <span id="teks-kecil" onclick="window.location.href='surga.html'">Skip to next page (if you can see this)</span>
     </div>
 
+    <script src="../assets/security.js"></script>
+    <script src="../assets/progress.js"></script>
     <script>
+        saveProgress('pages/walawe.html');
         let progress = 0;
         const bar = document.getElementById('bar');
         const status = document.getElementById('status');
         const pesan = document.getElementById('pesan');
 
-        // Loading bar yang nyebelin (mentok di 99%)
         const interval = setInterval(() => {
             if (progress < 99) {
-                // Makin deket 99, makin lambat jalannya
                 let tambah = Math.random() * (100 - progress) * 0.1;
                 progress += tambah;
                 bar.style.width = progress + '%';
             } else {
-                status.innerText = "Error 418: I'm a teapot. Silakan tunggu sampai server sadar.";
-                pesan.innerText = "Loading berhenti di 99.9%. Kenapa? Ya karena ngeselin aja.";
+                status.innerText = "Error 418: I'm a teapot. Please wait until server wakes up.";
+                pesan.innerText = "Loading stopped at 99.9%. Why? Because it's annoying, that's why.";
                 clearInterval(interval);
             }
         }, 500);
-
-        // Mencegah klik kanan dan inspect element (level basic)
-        document.addEventListener('contextmenu', event => event.preventDefault());
-        document.onkeydown = function(e) {
-            if(e.keyCode == 123) { // F12
-                alert("Ngapain buka inspect element hayoo?");
-                return false;
-            }
-        };
     </script>
 </body>
 </html>

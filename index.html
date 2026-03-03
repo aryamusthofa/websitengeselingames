@@ -3,26 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Pribadi Saya</title>
+    <title>My Personal Blog</title>
     <link rel="stylesheet" href="assets/main.css">
 </head>
 <body>
     <div class="container" style="text-align: left;">
-        <h1 id="judul">Selamat Datang.</h1>
-        <p>Halo, ini adalah halaman personal saya. Tidak ada yang spesial di sini, hanya tempat saya menulis beberapa pemikiran.</p>
-        <p>Jika Anda ingin membaca artikel pertama saya, silakan klik tombol di bawah.</p>
-        <button id="btn-normal" onclick="window.location.href='pages/level1.html'">Baca Artikel</button>
-        <button id="btn-reset" style="display:none; background:red; margin-top:10px;" onclick="resetProgress()">Hapus Data (Reset)</button>
+        <h1 id="judul">Welcome.</h1>
+        <p>Hello, this is my personal page. Nothing special here, just a place to write my thoughts.</p>
+        <p>If you want to read my first article, please click the button below.</p>
+        <button id="btn-normal" onclick="window.location.href='pages/level1.html'">Read Article</button>
+        <button id="btn-reset" style="display:none; background:red; margin-top:10px;" onclick="resetProgress()">Erase Data (Reset)</button>
     </div>
     
     <script src="assets/security.js"></script>
     <script src="assets/progress.js"></script>
     <script>
-        // Cek apakah ada progress sebelumnya
         if(localStorage.getItem('level_ngeselin')) {
-            document.getElementById('judul').innerText = "Loh, Anda kembali?";
-            document.querySelector('p').innerText = "Sepertinya Anda belum kapok. Ingin melanjutkan penderitaan?";
-            document.getElementById('btn-normal').innerText = "Lanjutkan Perjalanan";
+            document.getElementById('judul').innerText = "Oh, you're back?";
+            document.querySelector('p').innerText = "Seems you haven't had enough. Want to continue the suffering?";
+            document.getElementById('btn-normal').innerText = "Continue Journey";
             document.getElementById('btn-reset').style.display = 'inline-block';
             
             document.getElementById('btn-normal').onclick = function() {
